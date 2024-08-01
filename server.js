@@ -44,7 +44,26 @@ app.get('/collectibles/:index', function(req,res) {
 
 //4. 
 app.get('/shoes', function(req,res) {
-  
+  let filteredShoes = shoes.filter((shoe) => {
+    if ((req.query['min-price']) && (req.query['max-price']) && (req.query['type'])) {
+      return ((shoe.price > req.query['min-price']) && (shoe.price < req.query['max-price']) && (shoe.type === req.query['type']))
+    } else if ((req.query['min-price']) && (req.query['max-price'])) {
+      return ((shoe.price > req.query['min-price']) && (shoe.price < req.query['max-price']))
+    } else if ((req.query['max-price']) && (req.query['type'])) {
+      return ((shoe.price < req.query['max-price']) && (shoe.type === req.query['type']))
+    } else if ((req.query['min-price']) && (req.query['type'])) {
+      return ((shoe.price > req.query['min-price']) && (shoe.type === req.query['type']))
+    } else if(req.query['min-price']) {
+      return (shoe.price > req.query['min-price'])
+    } else if (req.query['max-price']) {
+      return (shoe.price < req.query['max-price'])
+    } else if (req.query.type) {
+      return (shoe.type === req.query['type'])
+    } else {
+      return shoes
+    }
+  })
+  res.send(filteredShoes)
 })
 
 // app.get('/shoes/:max-price', function(req,res) {
