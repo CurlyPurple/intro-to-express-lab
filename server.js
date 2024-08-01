@@ -66,33 +66,6 @@ app.get('/shoes', function(req,res) {
   res.send(filteredShoes)
 })
 
-// app.get('/shoes/:max-price', function(req,res) {
-//   let filteredMaxShoes = shoes.filter((shoe) => {
-//     return parseInt(shoe.price) < parseInt(req.params.max-price)
-//   })
-//   res.render(filteredMaxShoes)
-// })
-
-// app.get('/shoes/:min-price', function(req,res) {
-  //   let filteredMinShoes = shoes.filter((shoe) => {
-  //     return parseInt(shoe.price) > parseInt(req.params.min-price)
-  //   })
-  //   res.render(filteredMinShoes)
-  // })
-
-// app.get('/shoes/:type', function(req,res) {
-//   let filteredTypeShoes = shoes.filter((shoe) => {
-//     return shoe.type === req.params.type
-//   })
-//   res.render(filteredTypeShoes)
-// })
-
-// app.get('/shoes', function(req,res) {
-//   res.send(shoes)
-// })
-// GET localhost:3000/
-
-
 // tell the app to listen on port 3000
 
 app.listen(3000, function() {
