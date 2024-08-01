@@ -43,28 +43,39 @@ app.get('/collectibles/:index', function(req,res) {
 })
 
 //4. 
+// Ben's Morning Help
 app.get('/shoes', function(req,res) {
-  let filteredShoes = shoes.filter((shoe) => {
-    if ((req.query['min-price']) && (req.query['max-price']) && (req.query['type'])) {
-      return ((shoe.price > req.query['min-price']) && (shoe.price < req.query['max-price']) && (shoe.type === req.query['type']))
-    } else if ((req.query['min-price']) && (req.query['max-price'])) {
-      return ((shoe.price > req.query['min-price']) && (shoe.price < req.query['max-price']))
-    } else if ((req.query['max-price']) && (req.query['type'])) {
-      return ((shoe.price < req.query['max-price']) && (shoe.type === req.query['type']))
-    } else if ((req.query['min-price']) && (req.query['type'])) {
-      return ((shoe.price > req.query['min-price']) && (shoe.type === req.query['type']))
-    } else if(req.query['min-price']) {
-      return (shoe.price > req.query['min-price'])
-    } else if (req.query['max-price']) {
-      return (shoe.price < req.query['max-price'])
-    } else if (req.query.type) {
-      return (shoe.type === req.query['type'])
-    } else {
-      return shoes
-    }
+  let minPrice = req.query['min-price'] ? req.query['min-price'] : 0
+  let maxPrice = req.query['max-price'] ? req.query['max-price'] : Infinity
+  let type = req.query.type ? req.query.type : ''
+  const filteredShoes = shoes.filter((shoe) => {
+    return shoe.price >= minPrice && shoe.price <= maxPrice && shoe.type.includes(type)
   })
-  res.send(filteredShoes)
 })
+
+// My solution
+// app.get('/shoes', function(req,res) {
+//   let filteredShoes = shoes.filter((shoe) => {
+//     if ((req.query['min-price']) && (req.query['max-price']) && (req.query['type'])) {
+//       return ((shoe.price > req.query['min-price']) && (shoe.price < req.query['max-price']) && (shoe.type === req.query['type']))
+//     } else if ((req.query['min-price']) && (req.query['max-price'])) {
+//       return ((shoe.price > req.query['min-price']) && (shoe.price < req.query['max-price']))
+//     } else if ((req.query['max-price']) && (req.query['type'])) {
+//       return ((shoe.price < req.query['max-price']) && (shoe.type === req.query['type']))
+//     } else if ((req.query['min-price']) && (req.query['type'])) {
+//       return ((shoe.price > req.query['min-price']) && (shoe.type === req.query['type']))
+//     } else if(req.query['min-price']) {
+//       return (shoe.price > req.query['min-price'])
+//     } else if (req.query['max-price']) {
+//       return (shoe.price < req.query['max-price'])
+//     } else if (req.query.type) {
+//       return (shoe.type === req.query['type'])
+//     } else {
+//       return shoes
+//     }
+//   })
+//   res.send(filteredShoes)
+// })
 
 // tell the app to listen on port 3000
 
